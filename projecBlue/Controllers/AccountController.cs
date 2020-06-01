@@ -10,8 +10,7 @@ namespace projecBlue.Controllers
 {
     public class AccountController : Controller
     {
-        SqlConnection con = new SqlConnection();
-        SqlCommand com = new SqlCommand();
+        SqlConnection con = new SqlConnection("data source=DESKTOP-3J5RQC4\\SQLEXPRESS; database=pruebas; integrated security=SSPI;");
         SqlDataReader dr;
         // GET: Account
         [HttpGet]
@@ -19,17 +18,14 @@ namespace projecBlue.Controllers
         {
             return View();
         }
-        void connectionString()
-        {
-            con.ConnectionString = ("data source=DESKTOP-3J5RQC4\\SQLEXPRESS; database=pruebas; integrated security=SSPI;");
-        }
         [HttpPost]
         public ActionResult Verify(Account acc)
         {
-            connectionString();
+
             con.Open();
-            com.Connection = con;
-            com.CommandText = "SELECT * FROM tblLogin WHERE usuario='"+acc.Name+"' AND pass='"+acc.Password+"'";
+            SqlCommand com = new SqlCommand("SELECT * FROM tblLogin WHERE usuario=@usuario AND pass=@pass", con);
+            com.Parameters.AddWithValue("@usuario", acc.Name);
+            com.Parameters.AddWithValue("@pass", acc.Password);
             dr = com.ExecuteReader();
             if (dr.Read())
             {
