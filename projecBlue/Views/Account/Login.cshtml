@@ -24,20 +24,29 @@
             <div class="agile-right">
                 <a href="#">forgot password?</a>
             </div>
+
         </div>
         <!-- script for show password -->
         <script>
-				function myFunction() {
-					var x = document.getElementById("myInput");
-					if (x.type === "password") {
-						x.type = "text";
-					} else {
-						x.type = "password";
-					}
-				}
+            function myFunction() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
         </script>
         <!-- //end script -->
         <input type="submit" value="LOGIN">
+
+        @if (!string.IsNullOrEmpty(ViewBag.Errores))
+        {
+            <div class="text-danger">
+                <br />
+                <label> @ViewBag.Errores </label>
+            </div>
+        }
     </form>
 </div>
 <!-- //form ends here -->

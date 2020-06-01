@@ -30,7 +30,8 @@ namespace projecBlue.Controllers
             }
             else
             {
-                return View("Error");
+                ViewBag.Errores = "Verifica tu usuario o contraseña";
+                return View("Login");
             }
         }
     }
