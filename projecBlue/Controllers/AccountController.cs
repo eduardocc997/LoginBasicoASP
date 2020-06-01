@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using projecBlue.Models;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace projecBlue.Controllers
 {
@@ -20,14 +21,16 @@ namespace projecBlue.Controllers
         public ActionResult Verify(Account acc)
         {
             clsConsultas consulta = new clsConsultas();
-            int idLogeado = consulta.Login(acc.Name, acc.Password);
-            if (idLogeado == 0)
+            DataTable logeado = consulta.Login(acc.Name, acc.Password);
+            if (logeado.Rows.Count != 0)
             {
-                return View("Error");
+                ViewBag.idLogeado = logeado.Rows[0]["id"];
+                ViewBag.nombreLogeado = logeado.Rows[0]["usuario"];
+                return View("Create");
             }
             else
             {
-                return View("Create");
+                return View("Error");
             }
         }
     }

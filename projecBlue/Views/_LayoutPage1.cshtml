@@ -11,5 +11,13 @@
     <div>
         @RenderBody()
     </div>
+    <div>
+        @if (ViewBag.idLogeado != null)
+        {
+        <p> El id logeado es el @ViewBag.idLogeado</p>
+         
+        <p> y su usuario @ViewBag.nombreLogeado </p>
+        }
+    </div>
 </body>
 </html>
